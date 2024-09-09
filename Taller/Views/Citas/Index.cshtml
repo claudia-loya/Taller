@@ -133,7 +133,6 @@
             @if (usuario.EsAdmin != 1)
             {
                 <td>
-                    @*@Html.ActionLink("Editar |", "Edit", new { id = item.IdCita })*@
                     @Html.ActionLink(" Eliminar", "Delete", new { id = item.IdCita })
                 </td>
             }
@@ -167,6 +166,7 @@
                         <input type="hidden" id="idCita" name="idCita" />
                         <input type="hidden" id="aprobada" name="aprobada" />
                     </div>
+                    <br />
                     <div class="form-group text-right">
                         <button type="button" class="btn" id="btnEnviar">Enviar</button>
                     </div>

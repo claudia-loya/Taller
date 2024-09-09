@@ -4,7 +4,6 @@
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2>Eliminar</h2>
 
 <h3>¿Estás seguro de que quieres eliminar a este usuario?</h3>
@@ -21,7 +20,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ApellidoPaterno)
+            Apellido Paterno
         </dt>
 
         <dd>
@@ -29,7 +28,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ApellidoMaterno)
+            Apellido Materno
         </dt>
 
         <dd>
@@ -52,13 +51,13 @@
             @Html.DisplayFor(model => model.Correo)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Clave)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Clave)
-        </dd>
+        </dd>*@
 
     </dl>
 
@@ -66,7 +65,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Eliminar" class="btn btn-custom-red" /> |
             @Html.ActionLink("Ver listado", "Index")
         </div>
     }

@@ -3,15 +3,15 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    Taller.Models.Usuario usuario = Session["Usuario"] as Taller.Models.Usuario;
 }
-
+<link href="~/Content/css/Personalizaciones.css" rel="stylesheet" />
 <h2>Editar</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Usuario</h4>
         <hr />
@@ -53,7 +53,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Correo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Correo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Correo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -61,23 +61,27 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Clave, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Clave, new { htmlAttributes = new { @class = "form-control", type="password"} })
+                @Html.EditorFor(model => model.Clave, new { htmlAttributes = new { @class = "form-control", type = "password" } })
                 @Html.ValidationMessageFor(model => model.Clave, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <br />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Guardar" class="btn btn-default" />
+                <input type="submit" value="Guardar" class="btn btn-custom-green" />
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Ver listado", "Index")
-   
-</div>
+@if(usuario.EsAdmin == 1)
+{
+    <div>
+        @Html.ActionLink("Ver listado", "Index")
+
+    </div>
+}
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -1,0 +1,20 @@
+﻿.btn-custom-green {
+    background-color: #28a745; 
+    color: white; 
+    border: none; 
+}
+
+.btn-custom-green:hover {
+    background-color: #218838; 
+}
+
+.btn-custom-red {
+    background-color: #f52727;
+    color: white;
+    border: none;
+}
+
+.btn-custom-green:hover {
+    background-color: #c41f1f;
+}
+
