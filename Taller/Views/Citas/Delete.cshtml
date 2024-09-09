@@ -1,0 +1,96 @@
+﻿@model Taller.GetCitas_Result
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Eliminar</h2>
+
+<div>
+    <h4>¿Estás seguro de que quieres eliminar tu cita?</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modelo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Marca)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Marca)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Placas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Placas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaInicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaInicio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaFin)
+        </dd>
+
+        <dt>
+            Estatus
+        </dt>
+
+        <dd>
+            @if (Model.Aprobada == 1)
+            {
+                <span>Aprobada</span>
+            }
+            else if (Model.Aprobada == 0)
+            {
+                <span>Rechazada</span>
+            }
+            else
+            {
+                <span>Pendiente</span>
+            }
+        </dd>
+
+        @if (Model.Comentarios != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Comentarios)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Comentarios)
+            </dd>
+
+        }
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Eliminar" class="btn btn-default" /> |
+            @Html.ActionLink("Ver listado", "Index")
+        </div>
+    }
+</div>

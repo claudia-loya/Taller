@@ -1,0 +1,228 @@
+﻿@model IEnumerable<Taller.GetCitas_Result>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    Taller.Models.Usuario usuario = Session["Usuario"] as Taller.Models.Usuario;
+}
+
+<head>
+    <style>
+        .estatus-aprobada {
+            color: green;
+            font-weight: bold;
+        }
+
+        .estatus-rechazada {
+            color: red;
+            font-weight: bold;
+        }
+
+        .estatus-pendiente {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .btn-success {
+            background-color: green;
+            border-color: green;
+        }
+
+        .btn-danger {
+            background-color: red;
+            border-color: red;
+        }
+    </style>
+
+</head>
+
+<h2>Listado de Citas</h2>
+@if (usuario != null && usuario.EsAdmin != 1)
+{
+    <p>
+        @Html.ActionLink("Nueva Cita", "Create")
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Placas)
+        </th>
+        @if (usuario != null && usuario.EsAdmin == 1)
+        {
+            <th>
+                Dueño
+            </th>
+        }
+
+        <th>
+            Estatus
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comentarios)
+        </th>
+        <th>
+            Fecha Inicio
+        </th>
+        <th>
+            Fecha Fin
+        </th>
+        @if (usuario.EsAdmin != 1)
+        {
+            <th></th>
+        }
+        @if (usuario.EsAdmin == 1)
+        {
+            <th></th>
+        }
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Placas)
+            </td>
+            @if (usuario != null && usuario.EsAdmin == 1)
+            {
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duenio)
+                </td>
+            }
+
+            <td>
+                @if (item.Aprobada == 1)
+                {
+                    <span class="estatus-aprobada">Aprobada</span>
+                }
+                else if (item.Aprobada == 0)
+                {
+                    <span class="estatus-rechazada">Rechazada</span>
+                }
+                else
+                {
+                    <span class="estatus-pendiente">Pendiente</span>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comentarios)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaFin)
+            </td>
+
+            @if (usuario.EsAdmin != 1)
+            {
+                <td>
+                    @*@Html.ActionLink("Editar |", "Edit", new { id = item.IdCita })*@
+                    @Html.ActionLink(" Eliminar", "Delete", new { id = item.IdCita })
+                </td>
+            }
+            @if (usuario.EsAdmin == 1 && item.Aprobada == null)
+            {
+                <td>
+                    <a href="javascript:void(0);" onclick="showApproveModal(@item.IdCita, 1)">Aprobar</a> |
+                    <a href="javascript:void(0);" onclick="showApproveModal(@item.IdCita, 0)">Rechazar</a>
+                </td>
+            }
+        </tr>
+    }
+
+</table>
+
+
+@*Modal de aprobación/rechazo*@
+@Html.AntiForgeryToken()
+
+<div class="modal fade" id="aprobarModal" tabindex="-1" role="dialog" aria-labelledby="aprobarModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="aprobarModalLabel"></h5>
+            </div>
+            <div class="modal-body">
+                <form id="aprobarForm">
+                    <div class="form-group">
+                        <label for="comentarios">Comentarios</label>
+                        <textarea class="form-control" id="comentarios" name="comentarios" rows="3"></textarea>
+                        <input type="hidden" id="idCita" name="idCita" />
+                        <input type="hidden" id="aprobada" name="aprobada" />
+                    </div>
+                    <div class="form-group text-right">
+                        <button type="button" class="btn" id="btnEnviar">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    function showApproveModal(id, aprobada) {
+        $('#idCita').val(id);
+        $('#aprobada').val(aprobada);
+        $('#aprobarModal').modal('show');
+
+        if (aprobada === 1) {
+            $('#aprobarModalLabel').text('Aprobar Cita');
+            $('#btnEnviar').text('Aprobar').removeClass('btn-danger').addClass('btn-success');
+        } else if (aprobada === 0) {
+            $('#aprobarModalLabel').text('Rechazar Cita');
+            $('#btnEnviar').text('Rechazar').removeClass('btn-success').addClass('btn-danger');
+        }
+
+        $('#aprobarModal').modal('show');
+    }
+
+    $('#btnEnviar').on('click', function() {
+        var idCita = $('#idCita').val();
+        var comentarios = $('#comentarios').val();
+        var aprobada = $('#aprobada').val();
+
+       $.ajax({
+        url: '@Url.Action("AprobarRechazar", "Citas")',
+        type: 'POST',
+        data: {
+            idCita: idCita,
+            comentarios: comentarios,
+            aprobada: aprobada
+        },
+           success: function (response) {
+               console.log(response.success)
+            if (response.success) {
+                $('#aprobarModal').modal('hide');
+                location.reload(); 
+            } else {
+                alert('Error al aprobar la cita: ' + response.mensaje);
+            }
+        },
+        error: function() {
+            alert('Error al aprobar la cita.');
+        }
+});
+
+    });
+</script>
+

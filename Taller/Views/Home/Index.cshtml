@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Inicio - Taller Mecánico";
+}
+
+<head>
+    <link href="~/Content/css/Home.css" rel="stylesheet" />
+</head>
+<main>
+
+    <section class="row mt-4" aria-labelledby="mainTitle">
+        <h1 id="title">Bienvenido al Taller </h1>
+        <p class="lead">Ofrecemos servicios de prevención, reparación y mantenimiento de vehículos. Contamos con la más alta calidad del mercado.</p>
+    </section>
+
+    <div id="carouselIndicators" class="carousel slide" data-bs-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-bs-target="#carouselIndicators" data-bs-slide-to="0" class="active"></li>
+            <li data-bs-target="#carouselIndicators" data-bs-slide-to="1"></li>
+            <li data-bs-target="#carouselIndicators" data-bs-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://images.pexels.com/photos/4116233/pexels-photo-4116233.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="Imagen 1">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Bienvenidos a Nuestro Taller</h5>
+                    <p>La mejor atención y servicio para tu vehículo.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.pexels.com/photos/4116220/pexels-photo-4116220.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="Imagen 2">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Servicios Especializados</h5>
+                    <p>Mantenimiento preventivo y reparaciones de calidad.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://images.pexels.com/photos/4116224/pexels-photo-4116224.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="d-block w-100" alt="Imagen 3">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Equipo Profesional</h5>
+                    <p>Confía en nuestro equipo de expertos.</p>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselIndicators" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+        </a>
+    </div>
+
+
+    <div class="row mt-4">
+        <section class="col-md-4" aria-labelledby="servicios">
+            <h2 id="servicios">Servicios Especializados</h2>
+            <p>
+                Ofrecemos una amplia gama de servicios, desde mantenimiento preventivo hasta reparaciones complejas, garantizando el mejor cuidado para tu vehículo.
+            </p>
+        </section>
+
+        <section class="col-md-4" aria-labelledby="opiniones">
+            <h2 id="opiniones">Lo que Dicen Nuestros Clientes</h2>
+            <p>Nuestra experiencia nos respalda, cientos de clientes satisfechos confían en nuestro taller para el mantenimiento de sus vehículos.</p>
+        </section>
+
+        <section class="col-md-4" aria-labelledby="contacto">
+            <h2 id="contacto">Contáctanos</h2>
+            <p>Estamos aquí para ayudarte. Si tienes alguna pregunta o necesitas agendar una cita, no dudes en contactarnos.</p>
+        </section>
+    </div>
+</main>

@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Taller</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @{
+        Taller.Models.Usuario usuario = Session["Usuario"] as Taller.Models.Usuario;
+    }
+    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("Taller", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+
+                    @if (usuario != null && usuario.EsAdmin == 1) //Menú exclusivo para administradores
+                    {
+                        <li>@Html.ActionLink("Usuarios", "Index", "Usuarios", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+
+                    @if (usuario != null && usuario.EsAdmin != 1) //Menú exclusivo para clientes
+                    {
+                        <li>@Html.ActionLink("Mis Carros", "Index", "Carros", new { id = 5 }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Mis Datos", "Edit", "Usuarios", new { id = 5 }, new { @class = "nav-link" })</li>
+                    }
+                    <li>@Html.ActionLink("Citas", "Index", "Citas", new { id = 5 }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Salir", "CerrarSesion", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Taller Claudia Loya</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

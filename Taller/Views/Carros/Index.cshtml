@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Taller.CarrosClientes>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Listado de Carros</h2>
+
+<p>
+    @Html.ActionLink("Nuevo Carro", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Modelo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Anio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Placas)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Anio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Placas)
+            </td>
+
+            <td>
+                @Html.ActionLink("Editar |", "Edit", new { id = item.IdCarroCliente })
+                @Html.ActionLink(" Eliminar", "Delete", new { id = item.IdCarroCliente })
+            </td>
+        </tr>
+    }
+
+</table>

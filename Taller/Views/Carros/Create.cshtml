@@ -1,0 +1,93 @@
+﻿
+
+@model Taller.CarrosClientes
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Crear</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Carro</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Modelo, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control", id = "Modelo" } })
+                    @Html.ValidationMessageFor(model => model.Modelo, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", id = "Marca" } })
+                    @Html.ValidationMessageFor(model => model.Marca, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    <text class="control-label">Año</text>
+                    @Html.EditorFor(model => model.Anio, new { htmlAttributes = new { @class = "form-control", id = "Anio" } })
+                    @Html.ValidationMessageFor(model => model.Anio, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Placas, htmlAttributes: new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Placas, new { htmlAttributes = new { @class = "form-control", id = "Placas" } })
+                    @Html.ValidationMessageFor(model => model.Placas, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        @if (ViewData["Mensaje"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewData["Mensaje"]
+            </div>
+
+        }
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear" class="btn btn-default" id="btnCrear" disabled />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Ver listado", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script>
+
+        function validarCampos() {
+
+            let validoGuardar = true;
+
+
+            $('#Modelo, #Marca, #Anio, #Placas').each(function() {
+
+                if ($(this).val() === '') {
+
+                    validoGuardar = false;
+
+                }
+
+            });
+
+            $('#btnCrear').prop('disabled', !validoGuardar);
+
+        }
+
+        $('#Modelo, #Marca, #Anio, #Placas').on('input', validarCampos);
+
+    </script>
+}
